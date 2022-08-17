@@ -109,6 +109,19 @@ typedef struct {
  * foreground, background, cursor, reverse cursor
  */
 static const ColorScheme schemes[] = {
+	// Gruvbox dark
+	{{"#282828", "#cc241d", "#98971a", "#d79921",
+	  "#458588", "#b16286", "#689d6a", "#a89984",
+	  "#928374", "#fb4934", "#b8bb26", "#fabd2f",
+	  "#83a598", "#d3869b", "#8ec07c", "#ebdbb2",
+	  [256]="#ebdbb2", "#555555"}, 15, 0, 256, 257},
+
+	// Gruvbox light
+	{{"#fbf1c7", "#cc241d", "#98971a", "#d79921",
+	  "#458588", "#b16286", "#689d6a", "#7c6f64",
+	  "#928374", "#9d0006", "#79740e", "#b57614",
+	  "#076678", "#8f3f71", "#427b58", "#3c3836",
+	  [256]="#3c3836", "#555555"}, 15, 0, 256, 257},
 	// st (dark)
 	{{"black", "red3", "green3", "yellow3",
 	  "blue2", "magenta3", "cyan3", "gray90",
@@ -150,20 +163,6 @@ static const ColorScheme schemes[] = {
 	  "#fdf6e3", "#cb4b16", "#93a1a1", "#839496",
 	  "#657b83", "#6c71c4", "#586e75", "#002b36",
 	  [256]="#586e75", "#002b36"}, 12, 8, 256, 257},
-
-	// Gruvbox dark
-	{{"#282828", "#cc241d", "#98971a", "#d79921",
-	  "#458588", "#b16286", "#689d6a", "#a89984",
-	  "#928374", "#fb4934", "#b8bb26", "#fabd2f",
-	  "#83a598", "#d3869b", "#8ec07c", "#ebdbb2",
-	  [256]="#ebdbb2", "#555555"}, 15, 0, 256, 257},
-
-	// Gruvbox light
-	{{"#fbf1c7", "#cc241d", "#98971a", "#d79921",
-	  "#458588", "#b16286", "#689d6a", "#7c6f64",
-	  "#928374", "#9d0006", "#79740e", "#b57614",
-	  "#076678", "#8f3f71", "#427b58", "#3c3836",
-	  [256]="#3c3836", "#555555"}, 15, 0, 256, 257},
 };
 
 static const char * const * colorname;
@@ -220,6 +219,8 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
+	{ ShiftMask,            Button4, kscrollup,      {.i = 1} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = 1} },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
@@ -228,7 +229,7 @@ static MouseShortcut mshortcuts[] = {
 };
 
 /* Internal keyboard shortcuts. */
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 #define TERMMOD (ControlMask|ShiftMask)
 
 static Shortcut shortcuts[] = {
@@ -256,6 +257,8 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_9,           selectscheme,   {.i =  8} },
 	{ MODKEY,               XK_0,           nextscheme,     {.i = +1} },
 	{ MODKEY|ControlMask,   XK_0,           nextscheme,     {.i = -1} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+	{ ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
